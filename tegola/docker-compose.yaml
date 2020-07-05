@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  postgis:
+    build: ./postgis
+    image: gisolutions/postgis:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgis-data:/var/lib/postgresql/data
+
+  tegola:
+    build: ./tegola
+    image: gisolutions/tegola:latest
+    ports:
+      - 8081:8080
+    command: serve --config /opt/tegola_config/config.toml
+    restart: always
+    depends_on:
+      - postgis

@@ -1,0 +1,42 @@
+[webserver]
+port = ":8080"
+
+[cache]
+type="file"             # cache type
+basepath="/tmp/tegola"  # cache specific config
+
+# register data providers
+[[providers]]
+name = "borders"      # provider name is referenced from map layers
+type = "postgis"      # the type of data provider. currently only supports postgis
+host = "postgis"      # postgis database host
+port = 5432           # postgis database port
+database = "borders"  # postgis database name
+user = "tegola"       # postgis database user
+password = "password" # postgis database password
+srid = 4326           # The default srid for this provider. If not provided it will be WebMercator (3857)
+
+ [[providers.layers]]
+  name = "austriaborder"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "id"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, austria, id FROM austriaborder WHERE wkb_geometry && !BBOX!"
+
+  [[providers.layers]]
+  name = "districtsborder"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "id"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM districtsborder WHERE wkb_geometry && !BBOX!"
+
+[[maps]]
+name = "borders"
+
+[[maps.layers]]
+  provider_layer = "borders.austriaborder"
+  min_zoom = 1
+  max_zoom = 10
+
+ [[maps.layers]]
+  provider_layer = "borders.districtsborder"
+  min_zoom = 10
+  max_zoom = 20

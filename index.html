@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css" />
+    <style>
+      #map {
+        height: 600px;
+        width: 100%;
+        background-color: #1c79b5;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+
+    <title>Vector Tile Beispiel </title>
+  </head>
+
+  <body>
+    <h1>Vector Tile Beispiel</h1>
+    <button onclick="changeStyleFunction()">Style wechseln</button>
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+
+      var defaultStyle = new ol.style.Style( {
+        fill: new ol.style.Fill( {
+          color: [234, 231, 221, 1],
+        } ),
+        stroke: new ol.style.Stroke( {
+          color: [182, 177, 162, 1],
+          width: 1,
+        } ),
+      } );
+
+      function customStyleFunction( feature, resolution ) {
+        if ( feature.get( 'layer' ) == 'world_bordersgeojson' ) {
+          //styling for the tileserver-gl source layers
+          return new ol.style.Style( {
+            fill: new ol.style.Fill( {
+              color: [155, 0, 0, 0.2],
+            } ),
+            stroke: new ol.style.Stroke( {
+              color: [155, 0, 0, 1],
+              width: 3,
+            } ),
+          } );
+        }
+        if ( feature.get( 'layer' ) == 'districtsborder' ) {
+          //styling for the tegola source layers
+          var borderStyle = new ol.style.Style( {
+            fill: new ol.style.Fill( {
+              color: [239, 0, 0, 0.2],
+            } ),
+            stroke: new ol.style.Stroke( {
+              color: [239, 0, 0, 1],
+              width: 2,
+            } ),
+          } );
+          return [borderStyle];
+        }
+
+        if ( feature.get( 'layer' ) == 'austriaborder' ) {
+          //styling for the tegola source layers
+          var borderStyle = new ol.style.Style( {
+            fill: new ol.style.Fill( {
+              color: [239, 0, 0, 0.2],
+            } ),
+            stroke: new ol.style.Stroke( {
+              color: [239, 0, 0, 1],
+              width: 1,
+            } ),
+          } );
+          return [borderStyle]; // return null for no style to be applied
+        }
+
+        return [defaultStyle];
+      }
+
+      var osm = new ol.layer.Tile( {
+        source: new ol.source.OSM(),
+      } );
+
+      var vectorTilesFromTegola = new ol.layer.VectorTile( {
+        source: new ol.source.VectorTile( {
+          format: new ol.format.MVT(),
+          url: 'http://localhost:8081/maps/borders/{z}/{x}/{y}.pbf',
+        } ),
+        style: customStyleFunction,
+      } );
+      var vectorTilesFromTileServerGL = new ol.layer.VectorTile( {
+        source: new ol.source.VectorTile( {
+          format: new ol.format.MVT(),
+          url: 'http://localhost:8080/data/world_borders/{z}/{x}/{y}.pbf',
+        } ),
+        style: customStyleFunction,
+      } );
+
+      var olMap = new ol.Map( {
+        target: 'map',
+        layers: [osm, vectorTilesFromTileServerGL, vectorTilesFromTegola], //tegola
+        view: new ol.View( {
+          center: ol.proj.fromLonLat( [16.0, 48.0] ),
+          zoom: 4,
+        } ),
+      } );
+      var defaulltStyleoff = true;
+
+      // Todo use switch function to active and deactive the styling
+      function changeStyleFunction() {
+        var newStyle = undefined;
+
+        if ( defaulltStyleoff ) {
+          newStyle = defaultStyle;
+        } else {
+          newStyle = customStyleFunction;
+        }
+        //remove all layers from the map
+        olMap.getLayers().forEach( function a( layer ) {
+          olMap.removeLayer( layer );
+        } );
+        // add all layers with the new style
+        olMap.addLayer(
+          new ol.layer.Tile( {
+            source: new ol.source.OSM(),
+          } )
+        );
+        olMap.addLayer(
+          new ol.layer.VectorTile( {
+            source: new ol.source.VectorTile( {
+              format: new ol.format.MVT(),
+              url: 'http://localhost:8080/data/world_borders/{z}/{x}/{y}.pbf',
+            } ),
+            style: newStyle,
+          } )
+        );
+        olMap.addLayer(
+          new ol.layer.VectorTile( {
+            source: new ol.source.VectorTile( {
+              format: new ol.format.MVT(),
+              url: 'http://localhost:8081/maps/borders/{z}/{x}/{y}.pbf',
+            } ),
+            style: newStyle
+          } )
+        );
+        defaulltStyleoff = !defaulltStyleoff;
+      }
+    </script>
+  </body>
+
+</html>
