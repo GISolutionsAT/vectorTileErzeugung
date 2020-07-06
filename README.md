@@ -51,7 +51,6 @@ Der abstrakte Aufbau der Applikationen ist in folgender Darstellung gezeigt. Der
 Zum schnelleren Start sind die Konfigurationsschritte und Datenimportschritte in dockerfiles und Konfigurationsdatein ausgelagert und in der docker-compose.yaml zusammengeführt. Das komplette Setup kann mittels folgendem Befehl gestartet werden, aus dem Verzeichnis _tegola_:
 
 `docker-compose up`
-`docker-compose run`
 
 ## Konfiguration
 
@@ -178,7 +177,7 @@ Laut [Homepage](http://tileserver.org) definert sich tileserver-gl als:
 
 > „Vector and raster maps with GL styles. Server side rendering by Mapbox GL Native. Map tile server for Mapbox GL JS, Android, iOS, Leaflet, OpenLayers, GIS via WMTS, etc.“
 
-Tileserver-gl ist als docker [image]](https://hub.docker.com/r/klokantech/tileserver-gl) nutzbar und wird mit folgenden Befehl gestartet. Dabei wird die zuvor erstellte mbtiles Datei eingebunden.
+Tileserver-gl ist als docker [image]](https://hub.docker.com/r/klokantech/tileserver-gl) nutzbar und wird mit folgenden Befehl gestartet. Dabei wird die zuvor erstellte mbtiles Datei eingebunden und der Befehl wird aus dem Verzeichnis _TileServerGL_ ausgeführt:
 
 `docker run --rm -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl -V /data/world_borders.mbtiles`
 
