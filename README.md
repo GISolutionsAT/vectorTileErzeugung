@@ -3,12 +3,19 @@
 
 ![Vector Tiles Google Trens](/images/vectorTilesGoogleTrends.png)
 
+
+Für die Darstellung von Karten auf einer Webseite wird bisher zumeist die Architektur von folgender Darstellung gewählt. ACHTUNG die Architektur ist stark abstrahiert.
+![Architektur von Webkarten](/images/WebkartenArchitektur.png)
+
+Mit der Vector Tiles Technologie verändert sich diese Architektur und zusammengefasst wird die Kartenerzeugung auf den Client verlagert, wie folgende Darstellung zeigt:
+![Architektur von Webkarten mit Vector Tiles](/images/WebkartenArchitekturVectorTiles.png)  
+
 Der Einsatz von Vector Tiles hat unter anderem folgende Vorteile im Vergleich zu Raster Tiles (Bilder):
 
-- kleinere Datenmengen
-- weniger Datenverwendung über die Leitung
+- weniger Speicherplatzbedarf am Server
+- weniger Bandbreite notewndig
 - Geodatenrendering am Client
-- Interaktion am Client durch JavaScript Methoden
+- Interaktion mit Inhalten der Webkarte am Client durch JavaScript Methoden
 
 # Voraussetzungen für die folgende Beschreibung
 
@@ -30,10 +37,8 @@ Die Applikationen werden auf der [Kommandozeile](https://de.wikipedia.org/wiki/K
 
 Die Webkarte am Client wird mittels OpenLayers erstellt. Die Konfiguration wird mittels JavaScript durchgeführt. Eingebunden ist die Webkarte in einer [HTML](https://html.spec.whatwg.org/multipage/) Seite, die mit [CSS](https://www.w3.org/Style/CSS/) Technologie gestylt wird.
 
-## Webkarten
 
-Für die Darstellung von Karten auf einer Webseite wird zumeist die Architektur von folgender Darstellung gewählt. ACHTUNG die Architektur ist stark abstrahiert.
-![Architektur von Webkarten](/images/WebkartenArchitektur.png)
+## Webkarten
 
 In diesem Dokument wird als JavaScript Bibliothek zur Erzeugung von Webkarten  [OpenLayers](https://openlayers.org) verwendet.
 
