@@ -320,3 +320,4 @@ __Beispiele für Entscheidungskriterien:__
 - [ESRI Vector Tile Format konvertieren](https://github.com/BergWerkGIS/vtpk2mbtiles) in mbtiles
 - [QGIS Plugin](https://plugins.qgis.org/plugins/vector_tiles_reader/) um Vector Tiles in QGIS als Layer einzubinden
 - [QGIS Plugin](https://www.lutraconsulting.co.uk/crowdfunding/vectortile-qgis/) um Vector Tiles ni QGIS zu erzeugen
+- [Vortrag zu Vektortiles bei der FOSSGIS](https://www.youtube.com/watch?v=FHMV8Znnajg&feature=emb_rel_pause)
