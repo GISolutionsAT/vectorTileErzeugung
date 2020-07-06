@@ -50,7 +50,8 @@ Der abstrakte Aufbau der Applikationen ist in folgender Darstellung gezeigt. Der
 
 Zum schnelleren Start sind die Konfigurationsschritte und Datenimportschritte in dockerfiles und Konfigurationsdatein ausgelagert und in der docker-compose.yaml zusammengeführt. Das komplette Setup kann mittels folgendem Befehl gestartet werden, aus dem Verzeichnis _tegola_:
 
-`docker-compose run `
+`docker-compose build`
+`docker-compose run`
 
 ## Konfiguration
 
