@@ -48,9 +48,9 @@ Beide Methoden haben Vorteile und Nachteile und es ist je Anwendungsfall zu ents
 Der abstrakte Aufbau der Applikationen ist in folgender Darstellung gezeigt. Der Datenfluss läuft von links nach rechts. Die Objekte in der ersten Spalte mit Bezeichnung **Daten in Tabellen** stellen die Geodaten abgelegt in separaten Tabellen in einer PostGIS Datenbank an. Diese Datenbank läuft in einem Docker Container. Die zweite Spalte **HTTP Interface** zeigt die Tegola Anwendung, die auf die PostGIS Datenbank und die Tabellen zugreift und die Vector Tiles mittels HTTP Interface erreichbar macht. Die dritte Spalte **Kartenerstellung** zeigt den Kartenaufbau am Client in einem Browser mit OpenLayers (oder ähnlichen JavaScript Bibliotheken). In der vierten Spalte **Onlinekarte** steht für die Webkarte, die der Benutzer sieht und die sich der Client zusammenbauen und stylen kann.
 ![Architektur](/images/TegolaArchitektur.png)
 
-Zum schnelleren Start sind die Konfigurationsschritte und Datenimportschritte in dockerfiles und Konfigurationsdatein ausgelagert und in der docker-compose.yaml zusammengeführt. Das komplette Setup kann mittels folgendem Befehl gestartet werden:
+Zum schnelleren Start sind die Konfigurationsschritte und Datenimportschritte in dockerfiles und Konfigurationsdatein ausgelagert und in der docker-compose.yaml zusammengeführt. Das komplette Setup kann mittels folgendem Befehl gestartet werden, aus dem Verzeichnis _tegola_:
 
-`docker-compose run tegola.yaml`
+`docker-compose run `
 
 ## Konfiguration
 
